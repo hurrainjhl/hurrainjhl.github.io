@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hoor Ul Ein Soomro | Cybersecurity</title>
+
+  <!-- Favicon (inline SVG as data URI) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230a0e17'/><text y='72' x='50' text-anchor='middle' font-size='62' font-family='monospace' fill='%2300ff88'>&#x3e;_</text></svg>" />
+
+  <!-- OG / Social preview -->
+  <meta name="description" content="Hoor Ul Ein Soomro — Cybersecurity student, Red Team Intern, SIEM Engineer, and open-source security tool builder." />
+  <meta name="author" content="Hoor Ul Ein Soomro" />
+  <meta name="keywords" content="cybersecurity, penetration testing, red team, SIEM, digital forensics, CTF, hacking, Pakistan" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hurrainjhl.github.io" />
+  <meta property="og:title" content="Hoor Ul Ein Soomro | Cybersecurity" />
+  <meta property="og:description" content="Red Team Intern · SIEM Engineer · CTF Player · Open-Source Tool Builder. BS Cybersecurity @ Air University." />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/153803776?v=4" />
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="400" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Hoor Ul Ein Soomro | Cybersecurity" />
+  <meta name="twitter:description" content="Red Team Intern · SIEM Engineer · CTF Player · Open-Source Tool Builder." />
+  <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/153803776?v=4" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- BOOT LOADER -->
+<div id="boot-loader">
+  <canvas id="boot-matrix"></canvas>
+  <div class="boot-inner">
+
+    <!-- Phase 1: welcome text -->
+    <div class="boot-phase" id="boot-phase-1">
+      <p class="boot-greeting" id="boot-greeting"></p>
+      <h1 class="boot-title" id="boot-title"></h1>
+      <p class="boot-tagline" id="boot-tagline"></p>
+    </div>
+
+    <!-- Phase 2: loading bar -->
+    <div class="boot-phase boot-phase-hidden" id="boot-phase-2">
+      <div class="boot-logo-sm">&gt;_ HOSO.PUNK</div>
+      <div class="boot-lines" id="boot-lines"></div>
+      <div class="boot-bar-wrap"><div class="boot-bar" id="boot-bar"></div></div>
+    </div>
+
+    <p class="boot-skip" id="boot-skip">— Press any key or click to skip —</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo"><span class="accent">&gt;_</span> HOSO.PUNK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="matrix-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-avatar-wrap">
+      <img src="https://avatars.githubusercontent.com/u/153803776?v=4" alt="Hoor Ul Ein Soomro" class="hero-avatar" />
+      <div class="avatar-ring"></div>
+    </div>
+    <div class="hero-text">
+      <p class="hero-pre">// Hello, World. I am</p>
+      <h1 class="hero-name">Hoor Ul Ein<br /><span class="accent">Soomro</span></h1>
+      <div class="hero-typewriter">
+        <span id="typewriter-text"></span><span class="cursor">|</span>
+      </div>
+      <p class="hero-summary">
+        Cybersecurity student at Air University · Red Team Intern · SIEM Engineer · Open-Source Tool Builder
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+        <a href="Hoor-UlEin-Soomro-CV.pdf" download class="btn btn-cv"><i class="fas fa-file-download"></i> Download CV</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">23</span><span class="stat-label">Repos</span></div>
+        <div class="stat"><span class="stat-num">89</span><span class="stat-label">Followers</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Internships</span></div>
+        <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Certs</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator"><div class="mouse"></div><span>Scroll</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title"><span class="accent">01.</span> About Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>BS Cybersecurity student</strong> at Air University, Islamabad, with hands-on exposure across <strong>Red Teaming</strong>, <strong>SIEM engineering</strong>, and <strong>DLP operations</strong> through three internships.</p>
+        <p>I build open-source security tools, chase CTF flags, and research offensive security tradecraft. My work spans vulnerability assessment, digital forensics, threat intelligence, and security automation.</p>
+        <p>When I'm not breaking things ethically, I write about security on <a href="https://medium.com/@hosopunk5" target="_blank" rel="noopener" class="inline-link">Medium</a>.</p>
+        <div class="about-tags">
+          <span class="tag">Red Teaming</span>
+          <span class="tag">Penetration Testing</span>
+          <span class="tag">Digital Forensics</span>
+          <span class="tag">SIEM / Wazuh</span>
+          <span class="tag">Threat Intelligence</span>
+          <span class="tag">DLP / Forcepoint</span>
+          <span class="tag">CTF Player</span>
+          <span class="tag">Open Source</span>
+        </div>
+
+        <!-- TryHackMe badge -->
+        <div class="thm-badge-wrap">
+          <p class="thm-badge-label"><i class="fas fa-flag"></i> TryHackMe — Hoso.punk</p>
+          <a href="https://tryhackme.com/p/Hoso.punk" target="_blank" rel="noopener" class="thm-card">
+            <div class="thm-card-inner">
+              <div class="thm-card-left">
+                <img src="https://avatars.githubusercontent.com/u/153803776?v=4" alt="Hoso.punk" class="thm-avatar" />
+              </div>
+              <div class="thm-card-right">
+                <p class="thm-username">Hoso.punk</p>
+                <p class="thm-platform"><i class="fas fa-shield-alt"></i> TryHackMe</p>
+                <div class="thm-stats-row">
+                  <span class="thm-stat"><i class="fas fa-flag"></i> CTF Player</span>
+                  <span class="thm-stat"><i class="fas fa-trophy"></i> Active</span>
+                </div>
+                <span class="thm-view-btn">View Profile →</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- GitHub Stats Panel (hardcoded from live API data) -->
+        <div class="gh-graph-wrap">
+          <p class="gh-graph-label"><i class="fab fa-github"></i> GitHub Stats</p>
+          <a href="https://github.com/hurrainjhl" target="_blank" rel="noopener" class="gh-stats-card">
+            <div class="gh-stats-header">
+              <img src="https://avatars.githubusercontent.com/u/153803776?v=4" alt="hurrainjhl" class="gh-stats-avatar" />
+              <div>
+                <p class="gh-stats-name">Hoor-ul-ain Soomro</p>
+                <p class="gh-stats-handle">@hurrainjhl</p>
+              </div>
+            </div>
+            <div class="gh-stats-grid">
+              <div class="gh-stat-item">
+                <span class="gh-stat-num">23</span>
+                <span class="gh-stat-lbl">Repos</span>
+              </div>
+              <div class="gh-stat-item">
+                <span class="gh-stat-num">34</span>
+                <span class="gh-stat-lbl">Stars</span>
+              </div>
+              <div class="gh-stat-item">
+                <span class="gh-stat-num">9</span>
+                <span class="gh-stat-lbl">Forks</span>
+              </div>
+              <div class="gh-stat-item">
+                <span class="gh-stat-num">89</span>
+                <span class="gh-stat-lbl">Followers</span>
+              </div>
+            </div>
+            <div class="gh-langs-row">
+              <span class="gh-lang"><span class="gh-lang-dot" style="background:#3572A5"></span>Python</span>
+              <span class="gh-lang"><span class="gh-lang-dot" style="background:#f34b7d"></span>C++</span>
+              <span class="gh-lang"><span class="gh-lang-dot" style="background:#e34c26"></span>HTML</span>
+              <span class="gh-lang"><span class="gh-lang-dot" style="background:#89e051"></span>Shell</span>
+              <span class="gh-lang"><span class="gh-lang-dot" style="background:#C1F12E"></span>Batch</span>
+            </div>
+            <p class="gh-stats-cta">View full profile →</p>
+          </a>
+        </div>
+
+        <!-- CyLab Academy Stats Card -->
+        <div class="gh-graph-wrap">
+          <p class="gh-graph-label"><i class="fas fa-shield-virus"></i> CyLab Academy Stats</p>
+          <a href="https://learn.cylabacademy.org/users/hurrln" target="_blank" rel="noopener" class="cylab-card">
+            <div class="cylab-header">
+              <div class="cylab-avatar-circle">HU</div>
+              <div>
+                <p class="cylab-username">hurrln</p>
+                <p class="cylab-since">Learner since June 2024</p>
+              </div>
+              <img src="https://learn.cylabacademy.org/favicon.ico" alt="" class="cylab-logo" onerror="this.style.display='none'" />
+            </div>
+
+            <div class="cylab-challenge-header">
+              <span class="cylab-challenge-title">Challenge Completion</span>
+              <span class="cylab-total-num">21 <span class="cylab-total-lbl">Total</span></span>
+            </div>
+
+            <div class="cylab-bar-wrap">
+              <div class="cylab-bar-fill">
+                <div class="cylab-bar-easy"  style="width: 90.5%"></div>
+                <div class="cylab-bar-medium" style="width: 9.5%"></div>
+              </div>
+            </div>
+
+            <div class="cylab-breakdown">
+              <div class="cylab-diff">
+                <span class="cylab-diff-num easy">19</span>
+                <span class="cylab-diff-bar easy"></span>
+                <span class="cylab-diff-lbl">Easy</span>
+              </div>
+              <div class="cylab-diff">
+                <span class="cylab-diff-num medium">2</span>
+                <span class="cylab-diff-bar medium"></span>
+                <span class="cylab-diff-lbl">Medium</span>
+              </div>
+              <div class="cylab-diff">
+                <span class="cylab-diff-num hard">0</span>
+                <span class="cylab-diff-bar hard"></span>
+                <span class="cylab-diff-lbl">Hard</span>
+              </div>
+            </div>
+            <p class="gh-stats-cta">View profile →</p>
+          </a>
+        </div>
+      </div>
+      <div class="about-info">
+        <div class="info-card">
+          <div class="info-row"><i class="fas fa-graduation-cap"></i><span>BS Cybersecurity, Air University</span></div>
+          <div class="info-row"><i class="fas fa-calendar"></i><span>2023 – 2027</span></div>
+          <div class="info-row"><i class="fas fa-map-marker-alt"></i><span>Islamabad, Pakistan</span></div>
+          <div class="info-row"><i class="fas fa-envelope"></i><span>231315@students.au.edu.pk</span></div>
+          <div class="info-row"><i class="fas fa-phone"></i><span>+923110040058</span></div>
+          <div class="info-row"><i class="fas fa-terminal"></i><span>HOSO_PUNK</span></div>
+        </div>
+        <div class="about-links">
+          <a href="https://github.com/hurrainjhl" target="_blank" rel="noopener" class="social-btn"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/hoor-ul-ein-soomro-2425a12a0" target="_blank" rel="noopener" class="social-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="https://tryhackme.com/p/Hoso.punk" target="_blank" rel="noopener" class="social-btn thm"><i class="fas fa-flag"></i> TryHackMe</a>
+          <a href="https://medium.com/@hosopunk5" target="_blank" rel="noopener" class="social-btn med"><i class="fab fa-medium"></i> Medium</a>
+          <a href="https://discord.com/users/hoor99" target="_blank" rel="noopener" class="social-btn discord"><i class="fab fa-discord"></i> Discord</a>
+          <a href="https://learn.cylabacademy.org/users/hurrln" target="_blank" rel="noopener" class="social-btn cylab"><i class="fas fa-shield-virus"></i> CyLab Academy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title"><span class="accent">02.</span> Experience</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="tcard-header">
+            <div>
+              <h3 class="tcard-role">Red Team Intern</h3>
+              <p class="tcard-company"><i class="fas fa-building"></i> ITSOLERA PVT LTD <span class="badge badge-remote">Remote</span></p>
+            </div>
+            <span class="tcard-date">Jun 2025 – Aug 2025</span>
+          </div>
+          <ul class="tcard-bullets">
+            <li>Conducted external and internal penetration testing on client web applications, identifying critical vulnerabilities (SQLi, XSS).</li>
+            <li>Developed custom exploitation scripts using <strong>Python</strong> and <strong>Bash</strong> to automate reconnaissance and privilege escalation.</li>
+            <li>Documented security findings with remediation steps, delivering technical reports to development teams.</li>
+          </ul>
+          <div class="tcard-tags">
+            <span class="tag-sm">Penetration Testing</span><span class="tag-sm">Python</span><span class="tag-sm">Bash</span><span class="tag-sm">SQLi</span><span class="tag-sm">XSS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="tcard-header">
+            <div>
+              <h3 class="tcard-role">Information Security Intern — DLP & Solution Team</h3>
+              <p class="tcard-company"><i class="fas fa-building"></i> Trillium Information Security Systems <span class="badge badge-hybrid">Hybrid</span></p>
+            </div>
+            <span class="tcard-date">May 2025 – Jul 2025</span>
+          </div>
+          <ul class="tcard-bullets">
+            <li>Completed the <strong>CompTIA Security+</strong> training certification track as part of the internship program.</li>
+            <li>Explored Forcepoint DLP operations: data classification, policy enforcement, and endpoint monitoring configurations.</li>
+          </ul>
+          <div class="tcard-tags">
+            <span class="tag-sm">Forcepoint DLP</span><span class="tag-sm">CompTIA Sec+</span><span class="tag-sm">Data Classification</span><span class="tag-sm">SOC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="tcard-header">
+            <div>
+              <h3 class="tcard-role">SIEM Intern</h3>
+              <p class="tcard-company"><i class="fas fa-building"></i> NCCS <span class="badge badge-remote">Remote</span></p>
+            </div>
+            <span class="tcard-date">Jun 2024 – Sep 2024</span>
+          </div>
+          <ul class="tcard-bullets">
+            <li>Built a working <strong>SIEM dashboard using Wazuh</strong> for real-time security event visualization, log correlation, and incident monitoring.</li>
+            <li>Correlated firewall, endpoint, and network logs to identify malicious activity patterns and configured custom alerting rules.</li>
+            <li>Designed interactive dashboards to present security metrics and operational trends for analysis.</li>
+          </ul>
+          <div class="tcard-tags">
+            <span class="tag-sm">Wazuh</span><span class="tag-sm">SIEM</span><span class="tag-sm">Log Correlation</span><span class="tag-sm">Incident Monitoring</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title"><span class="accent">03.</span> Projects</h2>
+    <div class="projects-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="offensive">Offensive</button>
+      <button class="filter-btn" data-filter="forensics">Forensics</button>
+      <button class="filter-btn" data-filter="intel">Threat Intel</button>
+      <button class="filter-btn" data-filter="tools">Tools</button>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card featured" data-category="intel">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-project-diagram"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/CIPHERGRAPH" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <span class="project-featured-label">Featured</span>
+          <h3 class="project-name">CipherGraph</h3>
+          <p class="project-sub">CTI Knowledge Graph</p>
+          <p class="project-desc">Cyber Threat Intelligence platform that transforms unstructured OSINT reports into interactive knowledge graphs. Extracts threat actors, tools, and victims using LLMs (OpenRouter), resolves aliases, and maps relationships via Neo4j for visual investigation.</p>
+          <div class="project-tech"><span>Python</span><span>Neo4j</span><span>LLM / OpenRouter</span><span>OSINT</span><span>CTI</span></div>
+        </div>
+      </div>
+
+      <div class="project-card featured" data-category="forensics">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-search"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/ThreadSleuth" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <span class="project-featured-label">Featured</span>
+          <h3 class="project-name">ThreadSleuth</h3>
+          <p class="project-sub">High-Performance Forensic Tool</p>
+          <p class="project-desc">Uses C++ multithreading with a Thread Pool backend to analyze disk images in parallel. Features a Python Streamlit dashboard for real-time visualization of forensic findings.</p>
+          <div class="project-tech"><span>C++</span><span>Multithreading</span><span>Python</span><span>Streamlit</span><span>Digital Forensics</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="offensive">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-database"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-name">Zentryx</h3>
+          <p class="project-sub">PostgreSQL Security Middleware & SOC Dashboard</p>
+          <p class="project-desc">Inspects SQL queries pre-execution, blocks dangerous commands, fingerprints approved query templates, and visualizes query risk context for analysts.</p>
+          <div class="project-tech"><span>PostgreSQL</span><span>Python</span><span>SOC</span><span>SQL Security</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="offensive">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-bug"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/Payload_Generator" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-name">PayloadGen</h3>
+          <p class="project-sub">Universal Payload Generator</p>
+          <p class="project-desc">Generates payloads for XSS, SQL Injection, and Command Injection testing with built-in WAF evasion techniques. Used for web application security assessments.</p>
+          <div class="project-tech"><span>Python</span><span>XSS</span><span>SQLi</span><span>WAF Evasion</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="forensics">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/FEAS" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-name">FEAS</h3>
+          <p class="project-sub">Forensic Evidence Acquisition System</p>
+          <p class="project-desc">Digital forensic acquisition platform with SHA-256 hashing and chain-of-custody reporting — ensuring evidence integrity for legal and investigative use cases.</p>
+          <div class="project-tech"><span>Python</span><span>SHA-256</span><span>Chain of Custody</span><span>Forensics</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tools">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-binoculars"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/fizzup-recon-toolkit" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-name">Fizzup Recon Toolkit</h3>
+          <p class="project-sub">Advanced Reconnaissance Toolkit</p>
+          <p class="project-desc">Advanced cybersecurity reconnaissance toolkit supporting both passive and active scanning modes with automated reporting capabilities.</p>
+          <div class="project-tech"><span>Python</span><span>OSINT</span><span>Passive Recon</span><span>Active Recon</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tools">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-hawk-alt fa-eye"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/RedHawkX" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-name">RedHawkX</h3>
+          <p class="project-sub">Modular CLI Recon Tool</p>
+          <p class="project-desc">Modular CLI reconnaissance tool designed for offensive security interns. Supports passive/active recon with banner grabbing and automated reporting.</p>
+          <div class="project-tech"><span>Python</span><span>CLI</span><span>Banner Grabbing</span><span>Recon</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tools">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-terminal"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/CortexCLI" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-name">CortexCLI</h3>
+          <p class="project-sub">Cybersecurity CLI Toolkit</p>
+          <p class="project-desc">Comprehensive command-line toolkit for automation and security-focused operations, combining multiple security utilities into a unified CLI interface.</p>
+          <div class="project-tech"><span>CLI</span><span>Automation</span><span>Security Ops</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tools">
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="project-icon"><i class="fas fa-network-wired"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hurrainjhl/Distributed-Dns-system" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-name">Distributed DNS System</h3>
+          <p class="project-sub">Scalable DNS Architecture</p>
+          <p class="project-desc">Implementation-focused project demonstrating scalable DNS architectures using Python sockets, exploring distributed systems concepts from a security lens.</p>
+          <div class="project-tech"><span>Python</span><span>Sockets</span><span>DNS</span><span>Distributed Systems</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="projects-more">
+      <a href="https://github.com/hurrainjhl" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-github"></i> View All on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title"><span class="accent">04.</span> Skills & Arsenal</h2>
+    <div class="skills-grid">
+
+      <div class="skill-category">
+        <div class="skill-cat-header"><i class="fas fa-crosshairs"></i><h3>Security Domains</h3></div>
+        <div class="skill-pills">
+          <span>Penetration Testing</span><span>Digital Forensics</span><span>Malware Analysis</span>
+          <span>Incident Response</span><span>Vulnerability Assessment</span><span>DLP (Forcepoint)</span>
+          <span>SIEM (Wazuh)</span><span>Red Teaming</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-header"><i class="fas fa-sitemap"></i><h3>Frameworks & Methodologies</h3></div>
+        <div class="skill-pills">
+          <span>MITRE ATT&amp;CK</span><span>NIST</span><span>Cyber Kill Chain</span><span>OSINT</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-header"><i class="fas fa-tools"></i><h3>Penetration Testing Tools</h3></div>
+        <div class="skill-pills">
+          <span>Kali Linux</span><span>Burp Suite</span><span>Nmap</span><span>Metasploit</span>
+          <span>John the Ripper</span><span>FlareVM</span><span>Remnux</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-header"><i class="fas fa-microscope"></i><h3>Digital Forensics Tools</h3></div>
+        <div class="skill-pills">
+          <span>Autopsy</span><span>FTK Imager</span><span>Wireshark</span>
+          <span>SHA-256 Hashing</span><span>Chain-of-Custody</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-header"><i class="fas fa-code"></i><h3>Development & Databases</h3></div>
+        <div class="skill-pills">
+          <span>Python</span><span>Bash</span><span>C++</span><span>SQL</span>
+          <span>PostgreSQL</span><span>Neo4j</span><span>Multi-threading</span><span>Sockets</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-header"><i class="fas fa-user-shield"></i><h3>Soft Skills</h3></div>
+        <div class="skill-pills">
+          <span>Analytical Thinking</span><span>Technical Writing</span><span>Team Collaboration</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <h2 class="section-title"><span class="accent">05.</span> Certifications & Achievements</h2>
+    <div class="cert-grid">
+
+      <div class="cert-card highlight">
+        <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="cert-info">
+          <h3>Certified Threat Intelligence Analyst</h3>
+          <p class="cert-issuer">arcX — Foundation Level</p>
+          <span class="cert-date">May 2026</span>
+        </div>
+      </div>
+
+      <div class="cert-card highlight">
+        <div class="cert-icon"><i class="fas fa-lock"></i></div>
+        <div class="cert-info">
+          <h3>CompTIA Security+ Training</h3>
+          <p class="cert-issuer">TISS Internship Program</p>
+          <span class="cert-date">2024</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-flag"></i></div>
+        <div class="cert-info">
+          <h3>Ethical Hacking MasterClass</h3>
+          <p class="cert-issuer">Hacker Utd</p>
+          <span class="cert-date">Jul 2025</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-eye"></i></div>
+        <div class="cert-info">
+          <h3>OSINT'10 Workshop & CTF</h3>
+          <p class="cert-issuer">Blistorm</p>
+          <span class="cert-date">Aug 2024</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fab fa-github"></i></div>
+        <div class="cert-info">
+          <h3>GitHub & Version Control Workshop</h3>
+          <p class="cert-issuer">Dr. Coders</p>
+          <span class="cert-date">Aug 2024</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-robot"></i></div>
+        <div class="cert-info">
+          <h3>Tryna Bootcamp</h3>
+          <p class="cert-issuer">48-Hour AI Security Hackathon</p>
+          <span class="cert-date">2024</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-database"></i></div>
+        <div class="cert-info">
+          <h3>TISS DLP & SOC Security Training</h3>
+          <p class="cert-issuer">Trillium Information Security Systems</p>
+          <span class="cert-date">2024</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-trophy"></i></div>
+        <div class="cert-info">
+          <h3>ByteBotSec CTF Participant</h3>
+          <p class="cert-issuer">Capture The Flag</p>
+          <span class="cert-date">Sep 2025</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-globe"></i></div>
+        <div class="cert-info">
+          <h3>Digital Pakistan Cybersecurity Hackathon</h3>
+          <p class="cert-issuer">National Participant</p>
+          <span class="cert-date">Oct–Nov 2023</span>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-microchip"></i></div>
+        <div class="cert-info">
+          <h3>SOFTEC Cybersecurity Competition</h3>
+          <p class="cert-issuer">Participant</p>
+          <span class="cert-date">Feb 2024</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Achievements -->
+    <h2 class="section-title section-title-sub"><span class="accent">06.</span> Achievements</h2>
+    <div class="achievements-row">
+      <div class="achievement-card">
+        <div class="ach-icon"><i class="fas fa-medal"></i></div>
+        <div>
+          <h3>3rd Place — Scavenger Hunt</h3>
+          <p>Air University Cyber Skills Club · Team TrillBuzz</p>
+        </div>
+      </div>
+      <div class="achievement-card">
+        <div class="ach-icon"><i class="fas fa-microchip"></i></div>
+        <div>
+          <h3>FAST CyberFest Hackathon</h3>
+          <p>IoT &amp; Cybersecurity Track Participant · 2024</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <h2 class="section-title"><span class="accent">07.</span> Blog & Writing</h2>
+    <p class="blog-intro">Security research, CTF writeups, and tool breakdowns — published on Medium.</p>
+    <div class="blog-grid" id="blog-grid">
+      <!-- Populated by JS via Medium RSS -->
+      <div class="blog-loading">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        <span>Fetching latest articles...</span>
+      </div>
+    </div>
+    <div class="projects-more">
+      <a href="https://medium.com/@hosopunk5" target="_blank" rel="noopener" class="btn btn-outline">
+        <i class="fab fa-medium"></i> Read All on Medium
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title"><span class="accent">08.</span> Contact</h2>
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <p class="contact-intro">I'm open to internships, collaborations on security research, and CTF team-ups. Drop a message or reach out through any of my profiles.</p>
+        <div class="contact-links">
+          <a href="mailto:231315@students.au.edu.pk" class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>231315@students.au.edu.pk</span>
+          </a>
+          <a href="https://github.com/hurrainjhl" target="_blank" rel="noopener" class="contact-item">
+            <i class="fab fa-github"></i>
+            <span>github.com/hurrainjhl</span>
+          </a>
+          <a href="https://www.linkedin.com/in/hoor-ul-ein-soomro-2425a12a0" target="_blank" rel="noopener" class="contact-item">
+            <i class="fab fa-linkedin"></i>
+            <span>linkedin.com/in/hoor-ul-ein-soomro</span>
+          </a>
+          <a href="https://tryhackme.com/p/Hoso.punk" target="_blank" rel="noopener" class="contact-item">
+            <i class="fas fa-flag"></i>
+            <span>TryHackMe — Hoso.punk</span>
+          </a>
+          <a href="https://medium.com/@hosopunk5" target="_blank" rel="noopener" class="contact-item">
+            <i class="fab fa-medium"></i>
+            <span>medium.com/@hosopunk5</span>
+          </a>
+          <a href="https://learn.cylabacademy.org/users/hurrln" target="_blank" rel="noopener" class="contact-item">
+            <i class="fas fa-shield-virus"></i>
+            <span>CyLab Academy — hurrln</span>
+          </a>
+          <a href="https://discord.com/users/hoor99" target="_blank" rel="noopener" class="contact-item discord-item">
+            <i class="fab fa-discord"></i>
+            <span>Discord — Hoso_punk</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="What's on your mind?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+          <p class="form-note" id="form-status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-name">&lt; Hoor Ul Ein Soomro /&gt;</p>
+    <p class="footer-sub">Cybersecurity Student · Red Teamer · Tool Builder</p>
+    <div class="footer-links">
+      <a href="https://github.com/hurrainjhl" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/hoor-ul-ein-soomro-2425a12a0" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://tryhackme.com/p/Hoso.punk" target="_blank" rel="noopener" aria-label="TryHackMe"><i class="fas fa-flag"></i></a>
+      <a href="https://medium.com/@hosopunk5" target="_blank" rel="noopener" aria-label="Medium"><i class="fab fa-medium"></i></a>
+      <a href="https://discord.com/users/hoor99" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+      <a href="https://learn.cylabacademy.org/users/hurrln" target="_blank" rel="noopener" aria-label="CyLab Academy"><i class="fas fa-shield-virus"></i></a>
+    </div>
+    <p class="footer-copy">Built with purpose · &copy; 2026 Hoor Ul Ein Soomro</p>
+  </div>
+</footer>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="script.js"></script>
+</body>
+</html>
