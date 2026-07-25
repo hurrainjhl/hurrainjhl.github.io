@@ -1,18 +1,620 @@
+
+Claude finished the response
+
+style.css
+css
+
+
+index.html
+97 lines
+
+html
+
+
+script.js
+471 lines
+
+js
+
+go through these files
+
+
+Viewed 2 files, read a memory, ran a command
+Viewed 2 files, read a memory, ran a command
+This confirms the main issue clearly. Here's the rundown:
+
+Big issue: index.html is incomplete
+The HTML file cuts off right after the #hero section — only 96 lines. But your style.css (1,737 lines) and script.js (470 lines) both expect a full multi-section page. Specifically, style.css has fully-built styles for sections that don't exist in the HTML yet:
+
+#about (about-grid, info-card, social-btn, GitHub stats card, Cylab Academy card)
+#experience (timeline, timeline-item, tcard-*)
+#projects (projects-filter, project-card, filter buttons)
+#skills (skill-category, skill-pills)
+#certifications (cert-card, cert-grid)
+Blog section (.blog-card, .blog-error)
+Contact section (there's a #contactForm referenced in JS but no form markup)
+And script.js actively queries for elements that aren't in the HTML: #contactForm, #blog-grid, #backToTop, #cursor-dot, #cursor-ring, .filter-btn, .project-card, .timeline-item, .skill-category, .cert-card, .achievement-card. Since these are grabbed with document.getElementById/querySelectorAll at the top level (not inside null-checks in most cases), several of these will throw errors on load right now — e.g. document.getElementById('backToTop').classList.toggle(...) on the scroll listener will throw immediately since backToTop doesn't exist, which could break execution of later listeners depending on load order.
+
+Most likely explanation: the index.html upload just got truncated/cut off when you exported or copy-pasted it — the nav links (#about, #experience, #projects, #skills, #certifications, #blog, #contact) all point to sections that simply aren't there yet.
+
+What looks solid in what is present
+The boot loader sequence (matrix rain + typewriter intro) is nicely built and self-contained — skip logic, sessionStorage gate, phase transitions all look correct.
+The hero section markup/CSS/JS (typewriter, matrix canvas, stats bar) is complete and consistent.
+Color system is clean — well-organized CSS variables, consistent dark navy/teal theme throughout (matches your usual convention).
+The Medium RSS blog fetch and GitHub/Cylab stat cards in CSS are thoughtful touches, assuming the corresponding HTML gets added.
+Do you have the rest of index.html (about/experience/projects/skills/certifications/blog/contact sections) so I can check it against the CSS and JS for a full pass? That would let me verify things like the exact IDs/classes match up (e.g., confirm #contactForm field names line up with script.js's form.name/form.email/form.message references).
+
+?can you fix the issues
+
+
+Viewed 2 files
+Viewed 2 files
+I'll rebuild the missing sections to match your CSS/JS, then patch the JS crash risks. Since I don't have your actual experience/project/cert details, I'm using clearly-marked placeholders you can swap in — I'm not going to invent fake companies or certifications for a real portfolio.
+
+
+Edited 4 files, ran 3 commands, viewed a file
+Edited 4 files, ran 3 commands, viewed a file
+All 7 nav anchors now resolve to real sections, and the contactForm/backToTop/cursor-dot/cursor-ring IDs the JS expects all exist.
+
+
+Ran a command, read a file
+Ran a command, read a file
+What I did:
+
+index.html — added the missing About, Experience, Projects, Skills, Certifications, Achievements, Blog, Contact, and Footer sections, plus the back-to-top button, cursor elements, and the <script> tag (which was missing entirely). Everything is wired to the exact IDs/classes your CSS and JS already expect, so nav links and scroll-reveal now actually work.
+script.js — added null-checks around #backToTop and #contactForm so a missing element can't throw and break other listeners on the page.
+style.css — left as-is; no bugs found there beyond one cosmetic duplicate (.gh-stats-grid is defined twice with different column counts — the later 4-column rule wins, so the earlier 2-column one is dead code. Harmless, but worth deleting one of them if you want clean CSS.)
+The content in About/Experience/Projects/Skills/Certifications/Achievements is all placeholder text marked with <!-- TODO --> comments — I didn't invent fake internships, companies, or certs for you. Swap those in with your real details (or paste me your resume/LinkedIn content and I'll drop it in for you).
+
+
+Index
+Code · HTML 
+
+Script
+JS 
+
+Style
+Code · CSS 
+
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Hoor Ul Ein Soomro | Cybersecurity</title> <!-- Favicon (inline SVG as data URI) --> <link rel="icon" type="image/svg+xml" href="data:im
+
+pasted
+
+
+/* ===== RESET & BASE ===== */ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } :root { --bg: #0a0e17; --bg2: #0d1220; --bg3: #111827; --surface: #131c2e; --surface2: #1a2540; --accent: #00ff88; --accent2: #00c4ff; --acc
+
+pasted
+
+'use strict';
+
+/* ===== NAVBAR ===== */
+const navbar = document.getElementById('navbar');
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+const navAnchors = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+
+navAnchors.forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAnchors.forEach(a => a.classList.remove('active'));
+      const match = document.querySelector(.nav-links a[href="#${e.target.id}"]);
+      if (match) match.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => observer.observe(s));
+
+/* ===== BACK TO TOP ===== */
+document.getElementById('backToTop').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ===== MATRIX CANVAS ===== */
+(function () {
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+  const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ<>/\\{}[]()';
+  let cols, drops;
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cols = Math.floor(canvas.width / 18);
+    drops = Array(cols).fill(1);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(10,14,23,0.06)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '
+#00ff88';
+    ctx.font = '14px Share Tech Mono';
+    drops.forEach((y, i) => {
+      const char = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(char, i * 18, y * 18);
+      if (y * 18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+  }
+  setInterval(draw, 55);
+})();
+
+/* ===== TYPEWRITER ===== */
+(function () {
+  const el = document.getElementById('typewriter-text');
+  const phrases = [
+    'Red Team Intern',
+    'SIEM Engineer',
+    'CTF Player',
+    'Penetration Tester',
+    'Digital Forensics Enthusiast',
+    'Open-Source Tool Builder',
+    'Threat Intelligence Analyst',
+  ];
+  let pi = 0, ci = 0, deleting = false;
+
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      el.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = phrase.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 50 : 85);
+  }
+  setTimeout(type, 800);
+})();
+
+/* ===== SCROLL-REVEAL (Intersection Observer) ===== */
+(function () {
+  const selectors = [
+    '.timeline-item',
+    '.project-card',
+    '.skill-category',
+    '.cert-card',
+    '.achievement-card',
+  ];
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, idx) => {
+      if (e.isIntersecting) {
+        // stagger siblings for a cascade effect
+        const siblings = e.target.closest('.timeline, .projects-grid, .skills-grid, .cert-grid, .achievements-row');
+        if (siblings) {
+          const all = siblings.querySelectorAll(e.target.tagName + ', [data-category]');
+          const i = Array.from(all).indexOf(e.target);
+          e.target.style.transitionDelay = ${i * 60}ms;
+        }
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => revealObserver.observe(el));
+  });
+})();
+
+/* ===== PROJECT FILTER ===== */
+(function () {
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !match);
+        if (match && !card.classList.contains('visible')) {
+          card.classList.add('visible');
+        }
+      });
+    });
+  });
+})();
+
+/* ===== CONTACT FORM (mailto fallback) ===== */
+(function () {
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('form-status');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name    = form.name.value.trim();
+    const email   = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    if (!name || !email || !message) {
+      status.textContent = 'Please fill out all fields.';
+      status.className = 'form-note error';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.textContent = 'Please enter a valid email.';
+      status.className = 'form-note error';
+      return;
+    }
+
+    const subject = encodeURIComponent(Portfolio Contact from ${name});
+    const body    = encodeURIComponent(Name: ${name}\nEmail: ${email}\n\nMessage:\n${message});
+    window.location.href = mailto:231315@students.au.edu.pk?subject=${subject}&body=${body};
+
+    status.textContent = 'Opening your mail client...';
+    status.className = 'form-note';
+    form.reset();
+  });
+})();
+
+/* ===== BOOT LOADER ===== */
+(function () {
+  const loader   = document.getElementById('boot-loader');
+  const phase1   = document.getElementById('boot-phase-1');
+  const phase2   = document.getElementById('boot-phase-2');
+  const linesEl  = document.getElementById('boot-lines');
+  const barEl    = document.getElementById('boot-bar');
+  const skipEl   = document.getElementById('boot-skip');
+  const greetEl  = document.getElementById('boot-greeting');
+  const titleEl  = document.getElementById('boot-title');
+  const tagEl    = document.getElementById('boot-tagline');
+
+  // Skip if already visited this session
+  if (sessionStorage.getItem('booted')) {
+    loader.classList.add('hidden');
+    return;
+  }
+
+  let skipped = false;
+
+  /* ---- Mini matrix canvas for boot screen ---- */
+  (function () {
+    const c   = document.getElementById('boot-matrix');
+    const ctx = c.getContext('2d');
+    const ch  = '01アイウエオカキクケコ<>/\\{}';
+    let cols, drops;
+    function resize() {
+      c.width  = window.innerWidth;
+      c.height = window.innerHeight;
+      cols  = Math.floor(c.width / 20);
+      drops = Array(cols).fill(1);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    setInterval(() => {
+      if (skipped) return;
+      ctx.fillStyle = 'rgba(0,0,0,0.07)';
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.fillStyle = '
+#00ff88';
+      ctx.font = '13px Share Tech Mono';
+      drops.forEach((y, i) => {
+        ctx.fillText(ch[Math.floor(Math.random() * ch.length)], i * 20, y * 20);
+        if (y * 20 > c.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      });
+    }, 60);
+  })();
+
+  /* ---- Skip handler ---- */
+  function skip() {
+    if (skipped) return;
+    skipped = true;
+    barEl.style.width = '100%';
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      sessionStorage.setItem('booted', '1');
+    }, 500);
+  }
+  document.addEventListener('keydown', skip, { once: true });
+  loader.addEventListener('click', skip);
+
+  /* ---- Typewriter helper ---- */
+  function typeText(el, text, speed, callback) {
+    let i = 0;
+    el.textContent = '';
+    function next() {
+      if (skipped) { el.textContent = text; if (callback) callback(); return; }
+      if (i <= text.length) {
+        el.textContent = text.slice(0, i++);
+        setTimeout(next, speed);
+      } else if (callback) {
+        callback();
+      }
+    }
+    next();
+  }
+
+  /* ---- Phase 1: Welcome text ---- */
+  const greeting = '// Welcome to my portfolio';
+  const name     = 'HOOR UL EIN SOOMRO';
+  const tagline  = 'Exploit code, not people.';
+
+  // Step 1: type greeting
+  setTimeout(() => {
+    typeText(greetEl, greeting, 40, () => {
+      // Step 2: type name with a beat
+      setTimeout(() => {
+        typeText(titleEl, name, 55, () => {
+          // Step 3: type tagline
+          setTimeout(() => {
+            tagEl.style.borderRight = '2px solid var(--accent)';
+            typeText(tagEl, tagline, 55, () => {
+              tagEl.style.animation = 'caretBlink 0.8s step-end infinite';
+              // hold for 1.2s then transition to phase 2
+              setTimeout(transitionToPhase2, 1200);
+            });
+          }, 300);
+        });
+      }, 300);
+    });
+  }, 400);
+
+  /* ---- Transition: phase 1 → phase 2 ---- */
+  function transitionToPhase2() {
+    if (skipped) return;
+    phase1.style.opacity = '0';
+    setTimeout(() => {
+      if (skipped) return;
+      phase1.style.display = 'none';
+      phase2.classList.remove('boot-phase-hidden');
+      phase2.style.opacity = '0';
+      requestAnimationFrame(() => {
+        phase2.style.transition = 'opacity 0.4s ease';
+        phase2.style.opacity = '1';
+        startLoadingPhase();
+      });
+    }, 500);
+  }
+
+  /* ---- Phase 2: loading lines ---- */
+  const lines = [
+    { text: '[  OK  ] Loading threat intelligence feeds...', cls: 'boot-ok' },
+    { text: '[  OK  ] Mounting encrypted volumes...', cls: 'boot-ok' },
+    { text: '[ WARN ] CVE-2024-1337 in scope — logged', cls: 'boot-warn' },
+    { text: '[  OK  ] Starting SIEM daemon (wazuh)...', cls: 'boot-ok' },
+    { text: '[  OK  ] Spawning recon agents...', cls: 'boot-ok' },
+    { text: '[  OK  ] Decrypting portfolio payload...', cls: 'boot-ok' },
+  ];
+
+  function startLoadingPhase() {
+    let idx = 0;
+    function addLine() {
+      if (skipped || idx >= lines.length) return;
+      const span = document.createElement('span');
+      span.className = boot-line ${lines[idx].cls};
+      span.textContent = lines[idx].text;
+      linesEl.appendChild(span);
+      barEl.style.width = ${Math.round(((idx + 1) / lines.length) * 100)}%;
+      idx++;
+      if (idx < lines.length) {
+        setTimeout(addLine, 280 + Math.random() * 160);
+      } else {
+        setTimeout(skip, 600);
+      }
+    }
+    addLine();
+  }
+})();
+
+/* ===== BLOG FEED (Medium RSS via rss2json) ===== */
+(function () {
+  const grid = document.getElementById('blog-grid');
+  if (!grid) return;
+
+  const MEDIUM_RSS = 'https://medium.com/feed/@hosopunk5';
+  const API = https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(MEDIUM_RSS)}&count=6;
+
+  function formatDate(str) {
+    try {
+      return new Date(str).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    } catch { return ''; }
+  }
+
+  function stripHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || '';
+  }
+
+  function extractImg(content) {
+    const m = content.match(/<img[^>]+src=["']([^"']+)["']/);
+    return m ? m[1] : null;
+  }
+
+  fetch(API)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.items || !data.items.length) throw new Error('no items');
+
+      grid.innerHTML = '';
+      data.items.slice(0, 6).forEach((item, i) => {
+        const imgSrc = item.thumbnail || extractImg(item.content || '') || null;
+        const desc   = stripHtml(item.description || item.content || '').slice(0, 160);
+
+        const card = document.createElement('div');
+        card.className = 'blog-card';
+        card.style.transitionDelay = ${i * 80}ms;
+        card.innerHTML = 
+          ${imgSrc
+            ? <img src="${imgSrc}" alt="${item.title}" class="blog-card-img" loading="lazy" onerror="this.style.display='none'" />
+            : <div class="blog-card-img-placeholder"><i class="fas fa-pen-nib"></i></div>}
+          <div class="blog-card-body">
+            <p class="blog-card-date">${formatDate(item.pubDate)}</p>
+            <h3 class="blog-card-title">${item.title}</h3>
+            <p class="blog-card-desc">${desc}…</p>
+            <a href="${item.link}" target="_blank" rel="noopener" class="blog-card-link">
+              Read article <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>;
+        grid.appendChild(card);
+
+        // Trigger reveal
+        requestAnimationFrame(() => {
+          setTimeout(() => card.classList.add('visible'), i * 80 + 50);
+        });
+      });
+    })
+    .catch(() => {
+      // Fallback: show static links if fetch fails (CORS / no articles yet)
+      grid.innerHTML = 
+        <div class="blog-error">
+          <p>Couldn't load articles automatically. <br/>
+          <a href="https://medium.com/@hosopunk5" target="_blank" rel="noopener">Read them directly on Medium →</a></p>
+        </div>;
+    });
+})();
+
+/* ===== CUSTOM CURSOR ===== */
+(function () {
+  // Skip on touch-only devices
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
+  let rafId;
+
+  // Dot follows cursor instantly
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top  = mouseY + 'px';
+  });
+
+  // Ring follows with smooth lag
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top  = ringY + 'px';
+    rafId = requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover state on interactive elements
+  const hoverTargets = 'a, button, input, textarea, select, label, [data-filter], .project-card, .cert-card, .social-btn, .skill-pills span';
+
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(hoverTargets)) {
+      document.body.classList.add('cursor-hover');
+    }
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(hoverTargets)) {
+      document.body.classList.remove('cursor-hover');
+    }
+  });
+
+  // Click pulse
+  document.addEventListener('mousedown', () => {
+    document.body.classList.add('cursor-click');
+  });
+  document.addEventListener('mouseup', () => {
+    document.body.classList.remove('cursor-click');
+  });
+
+  // Hide when mouse leaves window
+  document.addEventListener('mouseleave', () => {
+    dot.style.opacity  = '0';
+    ring.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    dot.style.opacity  = '1';
+    ring.style.opacity = '1';
+  });
+})();
+
+/* Dev helper — uncomment to always show boot screen during testing:
+   sessionStorage.removeItem('booted');
+*/,.... and
+
+Show more
+This is your real, filled-in version — nice, all the actual companies, projects, and certs are wired up correctly and every ID the JS needs is present. I'll carry my earlier JS safety fixes over to this version and fix one small markup bug I spotted.
+
+
+Created a file, edited a file
+Created a file, edited a file
+Now let me swap in the real HTML and verify everything lines up:
+
+
+Verify every ID script.js looks up exists exactly once in the real HTML
+Verify every ID script.js looks up exists exactly once in the real HTML
+Every ID resolves cleanly, once each — no more crash risk. Let's ship it.
+
+
+Ran a command, read a file
+Ran a command, read a file
+Good — this is your real content, now with everything fixed:
+
+index.html — swapped in your real, complete file (all real internships, projects, certs). Verified every ID script.js looks for exists exactly once (no more missing-element crashes).
+script.js — kept the #backToTop and #contactForm null-guards, so the page is resilient even if a section gets edited/removed later.
+style.css — removed the dead duplicate .gh-stats-grid rule (2-column) that was silently overridden by the 4-column one your GitHub stats card actually uses — harmless before, but now there's just one clean definition.
+Fixed one markup bug: the RedHawkX project had <i class="fas fa-hawk-alt fa-eye"></i> — fa-hawk-alt isn't a real Font Awesome icon and having two icon classes on one <i> can cause rendering glitches. Cleaned it up to just fa-eye.
+One thing worth double-checking yourself: the Discord links (https://discord.com/users/hoor99) — that URL format only works if hoor99 is your actual Discord user ID (the long numeric snowflake), not a username/tag. If it's a username, that link won't resolve correctly.
+
+
+Index
+Code · HTML 
+
+Script
+JS 
+
+Style
+Code · CSS 
+
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hoor Ul Ein Soomro | Cybersecurity</title>
-
+ 
   <!-- Favicon (inline SVG as data URI) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230a0e17'/><text y='72' x='50' text-anchor='middle' font-size='62' font-family='monospace' fill='%2300ff88'>&#x3e;_</text></svg>" />
-
+ 
   <!-- OG / Social preview -->
   <meta name="description" content="Hoor Ul Ein Soomro — Cybersecurity student, Red Team Intern, SIEM Engineer, and open-source security tool builder." />
   <meta name="author" content="Hoor Ul Ein Soomro" />
   <meta name="keywords" content="cybersecurity, penetration testing, red team, SIEM, digital forensics, CTF, hacking, Pakistan" />
-
+ 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hurrainjhl.github.io" />
   <meta property="og:title" content="Hoor Ul Ein Soomro | Cybersecurity" />
@@ -20,12 +622,12 @@
   <meta property="og:image" content="https://avatars.githubusercontent.com/u/153803776?v=4" />
   <meta property="og:image:width" content="400" />
   <meta property="og:image:height" content="400" />
-
+ 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Hoor Ul Ein Soomro | Cybersecurity" />
   <meta name="twitter:description" content="Red Team Intern · SIEM Engineer · CTF Player · Open-Source Tool Builder." />
   <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/153803776?v=4" />
-
+ 
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,30 +635,30 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-
+ 
 <!-- BOOT LOADER -->
 <div id="boot-loader">
   <canvas id="boot-matrix"></canvas>
   <div class="boot-inner">
-
+ 
     <!-- Phase 1: welcome text -->
     <div class="boot-phase" id="boot-phase-1">
       <p class="boot-greeting" id="boot-greeting"></p>
       <h1 class="boot-title" id="boot-title"></h1>
       <p class="boot-tagline" id="boot-tagline"></p>
     </div>
-
+ 
     <!-- Phase 2: loading bar -->
     <div class="boot-phase boot-phase-hidden" id="boot-phase-2">
       <div class="boot-logo-sm">&gt;_ HOSO.PUNK</div>
       <div class="boot-lines" id="boot-lines"></div>
       <div class="boot-bar-wrap"><div class="boot-bar" id="boot-bar"></div></div>
     </div>
-
+ 
     <p class="boot-skip" id="boot-skip">— Press any key or click to skip —</p>
   </div>
 </div>
-
+ 
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-logo"><span class="accent">&gt;_</span> HOSO.PUNK</div>
@@ -73,7 +675,7 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
-
+ 
 <!-- HERO -->
 <section id="hero">
   <canvas id="matrix-canvas"></canvas>
@@ -106,7 +708,7 @@
   </div>
   <div class="scroll-indicator"><div class="mouse"></div><span>Scroll</span></div>
 </section>
-
+ 
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
@@ -126,7 +728,7 @@
           <span class="tag">CTF Player</span>
           <span class="tag">Open Source</span>
         </div>
-
+ 
         <!-- TryHackMe badge -->
         <div class="thm-badge-wrap">
           <p class="thm-badge-label"><i class="fas fa-flag"></i> TryHackMe — Hoso.punk</p>
@@ -147,7 +749,7 @@
             </div>
           </a>
         </div>
-
+ 
         <!-- GitHub Stats Panel (hardcoded from live API data) -->
         <div class="gh-graph-wrap">
           <p class="gh-graph-label"><i class="fab fa-github"></i> GitHub Stats</p>
@@ -187,7 +789,7 @@
             <p class="gh-stats-cta">View full profile →</p>
           </a>
         </div>
-
+ 
         <!-- CyLab Academy Stats Card -->
         <div class="gh-graph-wrap">
           <p class="gh-graph-label"><i class="fas fa-shield-virus"></i> CyLab Academy Stats</p>
@@ -200,19 +802,19 @@
               </div>
               <img src="https://learn.cylabacademy.org/favicon.ico" alt="" class="cylab-logo" onerror="this.style.display='none'" />
             </div>
-
+ 
             <div class="cylab-challenge-header">
               <span class="cylab-challenge-title">Challenge Completion</span>
               <span class="cylab-total-num">21 <span class="cylab-total-lbl">Total</span></span>
             </div>
-
+ 
             <div class="cylab-bar-wrap">
               <div class="cylab-bar-fill">
                 <div class="cylab-bar-easy"  style="width: 90.5%"></div>
                 <div class="cylab-bar-medium" style="width: 9.5%"></div>
               </div>
             </div>
-
+ 
             <div class="cylab-breakdown">
               <div class="cylab-diff">
                 <span class="cylab-diff-num easy">19</span>
@@ -255,13 +857,13 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
     <h2 class="section-title"><span class="accent">02.</span> Experience</h2>
     <div class="timeline">
-
+ 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-card">
@@ -282,7 +884,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-card">
@@ -302,7 +904,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-card">
@@ -323,11 +925,11 @@
           </div>
         </div>
       </div>
-
+ 
     </div>
   </div>
 </section>
-
+ 
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
@@ -340,7 +942,7 @@
       <button class="filter-btn" data-filter="tools">Tools</button>
     </div>
     <div class="projects-grid">
-
+ 
       <div class="project-card featured" data-category="intel">
         <div class="project-card-inner">
           <div class="project-header">
@@ -356,7 +958,7 @@
           <div class="project-tech"><span>Python</span><span>Neo4j</span><span>LLM / OpenRouter</span><span>OSINT</span><span>CTI</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card featured" data-category="forensics">
         <div class="project-card-inner">
           <div class="project-header">
@@ -372,7 +974,7 @@
           <div class="project-tech"><span>C++</span><span>Multithreading</span><span>Python</span><span>Streamlit</span><span>Digital Forensics</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card" data-category="offensive">
         <div class="project-card-inner">
           <div class="project-header">
@@ -387,7 +989,7 @@
           <div class="project-tech"><span>PostgreSQL</span><span>Python</span><span>SOC</span><span>SQL Security</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card" data-category="offensive">
         <div class="project-card-inner">
           <div class="project-header">
@@ -402,7 +1004,7 @@
           <div class="project-tech"><span>Python</span><span>XSS</span><span>SQLi</span><span>WAF Evasion</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card" data-category="forensics">
         <div class="project-card-inner">
           <div class="project-header">
@@ -417,7 +1019,7 @@
           <div class="project-tech"><span>Python</span><span>SHA-256</span><span>Chain of Custody</span><span>Forensics</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card" data-category="tools">
         <div class="project-card-inner">
           <div class="project-header">
@@ -432,11 +1034,11 @@
           <div class="project-tech"><span>Python</span><span>OSINT</span><span>Passive Recon</span><span>Active Recon</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card" data-category="tools">
         <div class="project-card-inner">
           <div class="project-header">
-            <div class="project-icon"><i class="fas fa-hawk-alt fa-eye"></i></div>
+            <div class="project-icon"><i class="fas fa-eye"></i></div>
             <div class="project-links">
               <a href="https://github.com/hurrainjhl/RedHawkX" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             </div>
@@ -447,7 +1049,7 @@
           <div class="project-tech"><span>Python</span><span>CLI</span><span>Banner Grabbing</span><span>Recon</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card" data-category="tools">
         <div class="project-card-inner">
           <div class="project-header">
@@ -462,7 +1064,7 @@
           <div class="project-tech"><span>CLI</span><span>Automation</span><span>Security Ops</span></div>
         </div>
       </div>
-
+ 
       <div class="project-card" data-category="tools">
         <div class="project-card-inner">
           <div class="project-header">
@@ -477,20 +1079,20 @@
           <div class="project-tech"><span>Python</span><span>Sockets</span><span>DNS</span><span>Distributed Systems</span></div>
         </div>
       </div>
-
+ 
     </div>
     <div class="projects-more">
       <a href="https://github.com/hurrainjhl" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-github"></i> View All on GitHub</a>
     </div>
   </div>
 </section>
-
+ 
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
     <h2 class="section-title"><span class="accent">04.</span> Skills & Arsenal</h2>
     <div class="skills-grid">
-
+ 
       <div class="skill-category">
         <div class="skill-cat-header"><i class="fas fa-crosshairs"></i><h3>Security Domains</h3></div>
         <div class="skill-pills">
@@ -499,14 +1101,14 @@
           <span>SIEM (Wazuh)</span><span>Red Teaming</span>
         </div>
       </div>
-
+ 
       <div class="skill-category">
         <div class="skill-cat-header"><i class="fas fa-sitemap"></i><h3>Frameworks & Methodologies</h3></div>
         <div class="skill-pills">
           <span>MITRE ATT&amp;CK</span><span>NIST</span><span>Cyber Kill Chain</span><span>OSINT</span>
         </div>
       </div>
-
+ 
       <div class="skill-category">
         <div class="skill-cat-header"><i class="fas fa-tools"></i><h3>Penetration Testing Tools</h3></div>
         <div class="skill-pills">
@@ -514,7 +1116,7 @@
           <span>John the Ripper</span><span>FlareVM</span><span>Remnux</span>
         </div>
       </div>
-
+ 
       <div class="skill-category">
         <div class="skill-cat-header"><i class="fas fa-microscope"></i><h3>Digital Forensics Tools</h3></div>
         <div class="skill-pills">
@@ -522,7 +1124,7 @@
           <span>SHA-256 Hashing</span><span>Chain-of-Custody</span>
         </div>
       </div>
-
+ 
       <div class="skill-category">
         <div class="skill-cat-header"><i class="fas fa-code"></i><h3>Development & Databases</h3></div>
         <div class="skill-pills">
@@ -530,24 +1132,24 @@
           <span>PostgreSQL</span><span>Neo4j</span><span>Multi-threading</span><span>Sockets</span>
         </div>
       </div>
-
+ 
       <div class="skill-category">
         <div class="skill-cat-header"><i class="fas fa-user-shield"></i><h3>Soft Skills</h3></div>
         <div class="skill-pills">
           <span>Analytical Thinking</span><span>Technical Writing</span><span>Team Collaboration</span>
         </div>
       </div>
-
+ 
     </div>
   </div>
 </section>
-
+ 
 <!-- CERTIFICATIONS -->
 <section id="certifications">
   <div class="container">
     <h2 class="section-title"><span class="accent">05.</span> Certifications & Achievements</h2>
     <div class="cert-grid">
-
+ 
       <div class="cert-card highlight">
         <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
         <div class="cert-info">
@@ -556,7 +1158,7 @@
           <span class="cert-date">May 2026</span>
         </div>
       </div>
-
+ 
       <div class="cert-card highlight">
         <div class="cert-icon"><i class="fas fa-lock"></i></div>
         <div class="cert-info">
@@ -565,7 +1167,7 @@
           <span class="cert-date">2024</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fas fa-flag"></i></div>
         <div class="cert-info">
@@ -574,7 +1176,7 @@
           <span class="cert-date">Jul 2025</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fas fa-eye"></i></div>
         <div class="cert-info">
@@ -583,7 +1185,7 @@
           <span class="cert-date">Aug 2024</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fab fa-github"></i></div>
         <div class="cert-info">
@@ -592,7 +1194,7 @@
           <span class="cert-date">Aug 2024</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fas fa-robot"></i></div>
         <div class="cert-info">
@@ -601,7 +1203,7 @@
           <span class="cert-date">2024</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fas fa-database"></i></div>
         <div class="cert-info">
@@ -610,7 +1212,7 @@
           <span class="cert-date">2024</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fas fa-trophy"></i></div>
         <div class="cert-info">
@@ -619,7 +1221,7 @@
           <span class="cert-date">Sep 2025</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fas fa-globe"></i></div>
         <div class="cert-info">
@@ -628,7 +1230,7 @@
           <span class="cert-date">Oct–Nov 2023</span>
         </div>
       </div>
-
+ 
       <div class="cert-card">
         <div class="cert-icon"><i class="fas fa-microchip"></i></div>
         <div class="cert-info">
@@ -637,9 +1239,9 @@
           <span class="cert-date">Feb 2024</span>
         </div>
       </div>
-
+ 
     </div>
-
+ 
     <!-- Achievements -->
     <h2 class="section-title section-title-sub"><span class="accent">06.</span> Achievements</h2>
     <div class="achievements-row">
@@ -660,7 +1262,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- BLOG -->
 <section id="blog">
   <div class="container">
@@ -680,7 +1282,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -742,7 +1344,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -759,13 +1361,24 @@
     <p class="footer-copy">Built with purpose · &copy; 2026 Hoor Ul Ein Soomro</p>
   </div>
 </footer>
-
+ 
 <!-- CUSTOM CURSOR -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
-
+ 
 <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
-
+ 
 <script src="script.js"></script>
 </body>
 </html>
+ 
+
+
+
+
+
+
+
+
+
+
