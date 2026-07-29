@@ -6,9 +6,11 @@ const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 const navAnchors = document.querySelectorAll('.nav-links a');
 
+const backToTopBtn = document.getElementById('backToTop');
+
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
-  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+  if (backToTopBtn) backToTopBtn.classList.toggle('visible', window.scrollY > 400);
 });
 
 navToggle.addEventListener('click', () => {
@@ -37,9 +39,11 @@ const observer = new IntersectionObserver((entries) => {
 sections.forEach(s => observer.observe(s));
 
 /* ===== BACK TO TOP ===== */
-document.getElementById('backToTop').addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (backToTopBtn) {
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
 /* ===== MATRIX CANVAS ===== */
 (function () {
@@ -156,6 +160,7 @@ document.getElementById('backToTop').addEventListener('click', () => {
 (function () {
   const form = document.getElementById('contactForm');
   const status = document.getElementById('form-status');
+  if (!form || !status) return;
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();

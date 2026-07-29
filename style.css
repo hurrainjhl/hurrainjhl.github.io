@@ -1248,14 +1248,6 @@ footer {
   letter-spacing: 0.04em;
 }
 
-/* GitHub stats two-column grid */
-.gh-stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.gh-stats-grid a { display: block; }
-
 .gh-graph-img {
   width: 100%;
   border-radius: var(--radius);
